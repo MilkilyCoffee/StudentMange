@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.student.dao.AwardMapper">
+    <select id="findByUserId" resultType="com.student.model.Award">
+        SELECT * FROM awards WHERE user_id = #{userId}
+    </select>
+    
+    <select id="findById" resultType="com.student.model.Award">
+        SELECT * FROM awards WHERE id = #{id}
+    </select>
+    
+    <insert id="insert" parameterType="com.student.model.Award" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO awards (user_id, award_name, award_level, award_date, issuing_authority, description)
+        VALUES (#{userId}, #{awardName}, #{awardLevel}, #{awardDate}, #{issuingAuthority}, #{description})
+    </insert>
+    
+    <update id="update" parameterType="com.student.model.Award">
+        UPDATE awards
+        SET award_name = #{awardName},
+            award_level = #{awardLevel},
+            award_date = #{awardDate},
+            issuing_authority = #{issuingAuthority},
+            description = #{description}
+        WHERE id = #{id}
+    </update>
+    
+    <delete id="delete">
+        DELETE FROM awards WHERE id = #{id}
+    </delete>
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.student.dao.UserMapper">
+    <select id="findById" resultType="com.student.model.User">
+        SELECT * FROM users WHERE id = #{id}
+    </select>
+    
+    <select id="findByUsername" resultType="com.student.model.User">
+        SELECT * FROM users WHERE username = #{username}
+    </select>
+    
+    <insert id="insert" parameterType="com.student.model.User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO users (username, password, real_name, gender, birth_date, phone, email, address, create_time)
+        VALUES (#{username}, #{password}, #{realName}, #{gender}, #{birthDate}, #{phone}, #{email}, #{address}, NOW())
+    </insert>
+    
+    <update id="update" parameterType="com.student.model.User">
+        UPDATE users
+        SET password = #{password},
+            real_name = #{realName},
+            gender = #{gender},
+            birth_date = #{birthDate},
+            phone = #{phone},
+            email = #{email},
+            address = #{address}
+        WHERE id = #{id}
+    </update>
+    
+    <delete id="delete">
+        DELETE FROM users WHERE id = #{id}
+    </delete>
+</mapper>

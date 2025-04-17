@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.student.dao.CourseDao">
+    <resultMap id="courseMap" type="com.student.model.Course">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="courseName" column="course_name"/>
+        <result property="courseCode" column="course_code"/>
+        <result property="teacher" column="teacher"/>
+        <result property="credit" column="credit"/>
+        <result property="semester" column="semester"/>
+        <result property="grade" column="grade"/>
+        <result property="description" column="description"/>
+    </resultMap>
+    
+    <select id="getCoursesByUserId" resultMap="courseMap">
+        SELECT * FROM course WHERE user_id = #{userId}
+    </select>
+    
+    <select id="getCourseById" resultMap="courseMap">
+        SELECT * FROM course WHERE id = #{id}
+    </select>
+    
+    <insert id="addCourse" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO course (user_id, course_name, course_code, teacher, credit, semester, grade, description)
+        VALUES (#{userId}, #{courseName}, #{courseCode}, #{teacher}, #{credit}, #{semester}, #{grade}, #{description})
+    </insert>
+    
+    <update id="updateCourse">
+        UPDATE course
+        SET course_name = #{courseName},
+            course_code = #{courseCode},
+            teacher = #{teacher},
+            credit = #{credit},
+            semester = #{semester},
+            grade = #{grade},
+            description = #{description}
+        WHERE id = #{id} AND user_id = #{userId}
+    </update>
+    
+    <delete id="deleteCourse">
+        DELETE FROM course WHERE id = #{id} AND user_id = #{userId}
+    </delete>
+</mapper>

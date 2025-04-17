@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.student.dao.EducationMapper">
+    <select id="findByUserId" resultType="com.student.model.Education">
+        SELECT * FROM educations WHERE user_id = #{userId}
+    </select>
+    
+    <select id="findById" resultType="com.student.model.Education">
+        SELECT * FROM educations WHERE id = #{id}
+    </select>
+    
+    <insert id="insert" parameterType="com.student.model.Education" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO educations (user_id, school_name, education_level, major, start_date, end_date, description)
+        VALUES (#{userId}, #{schoolName}, #{educationLevel}, #{major}, #{startDate}, #{endDate}, #{description})
+    </insert>
+    
+    <update id="update" parameterType="com.student.model.Education">
+        UPDATE educations
+        SET school_name = #{schoolName},
+            education_level = #{educationLevel},
+            major = #{major},
+            start_date = #{startDate},
+            end_date = #{endDate},
+            description = #{description}
+        WHERE id = #{id}
+    </update>
+    
+    <delete id="delete">
+        DELETE FROM educations WHERE id = #{id}
+    </delete>
+</mapper>
